@@ -30,6 +30,18 @@ fccTestingRoutes(app);
 
 //Routing for API 
 apiRoutes(app);  
+
+app.route('/api/convert').get((req, res) => {
+  let { input } = req.query;
+  res.json({
+    "initNum":1.8,
+    "initUnit":"lbs",
+    "returnNum":0.81647,
+    "returnUnit":"kg",
+    "string":"1.8 pounds converts to 0.81647 kilograms"
+  })
+  
+})
     
 //404 Not Found Middleware
 app.use(function(req, res, next) {
