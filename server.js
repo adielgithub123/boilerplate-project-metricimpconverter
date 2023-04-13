@@ -33,12 +33,25 @@ apiRoutes(app);
 
 app.route('/api/convert').get((req, res) => {
   let { input } = req.query;
+  if (!input) {
+    return res.send("invalid input");
+  }
+  let result = apiRoutes(input);
+  if(result.valNum=="invalid number" && result.valUnit=="invalid unit"){
+    return res.send("invalid number and unit");
+  }
+  else if(result.valNum=="invalid number"){
+    return res.send("invalid number");
+  }
+  else if(result.valUnit=="invalid unit"){
+    return res.send("invalid unit");
+  }
   res.json({
-    "initNum":1.8,
-    "initUnit":"lbs",
-    "returnNum":0.81647,
-    "returnUnit":"kg",
-    "string":"1.8 pounds converts to 0.81647 kilograms"
+    "initNum":result.valNum,
+    "initUnit":result.valUnit,
+    "returnNum":result.valReturnNum,
+    "returnUnit":result.valReturnUnit,
+    "string":result.valString
   })
   
 })
